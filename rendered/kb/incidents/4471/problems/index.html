@@ -35,10 +35,10 @@ aside.warn { border-color: var(--warn); background: var(--warn-bg); }
 </style></head>
 <body><div class="kb">
 <header><a class="crumb" href="/kb">support desk · kb</a><h1>#4471 · three problems, not one</h1>
-<p class="meta"><span>owner <b>Jakub Klimczak</b></span><span class="status proposed">proposed</span><span>reviewed 2026-10-30 · 0 days ago</span></p></header>
+<p class="meta"><span>owner <b>Jakub Klimczak</b></span><span class="status resolved">resolved</span><span>reviewed 2026-10-30 · 0 days ago</span></p></header>
 <main>
 <p>The <a href="/kb/incidents/4471">#4471 page</a> calls the ticket one issue with one fix queued. The reports say otherwise. Read by what each body describes, and placed by each tenant's locale and booking form, the ticket holds three problems. One fix will not close it.</p>
-<aside class="warn">Not one issue. Three, each with its own ticket. The queued parser fix closes only the first.</aside>
+<aside class="warn">Not one issue. Three, each with its own ticket. The parser fix closed only the first.</aside>
 <h2>What #4471 holds</h2>
 <p class="sum"><strong>412</strong> reports in #4471 (427 rows in the export, 15 repeated) · <strong>3</strong> problems</p>
 <table><thead><tr><th>problem</th><th>reports</th><th>tenants</th><th>came in by</th><th>intake tagged</th><th>seen</th><th>ticket</th></tr></thead><tbody>
@@ -60,8 +60,11 @@ aside.warn { border-color: var(--warn); background: var(--warn-bg); }
 <tr class="wrong"><td><code>hint</code></td><td>33</td><td class="tags">hint ×18 · parser ×15</td><td>3</td><td>2026-04-17 → 2026-09-22</td><td>not this ticket — no ticket of its own</td></tr>
 </tbody></table>
 <p class="note">5 reports read as a one-day move; filed under <code>parser</code> by tenant.</p>
+<h2>Outcome</h2>
+<p>Engineering closed #4471 on 5 October.</p>
+<ul><li><code>parser</code>: <strong>fixed</strong> by <code>fix(dates): parse dd/mm for eu locales</code>. Ticket closed as completed.</li><li><code>hint</code>: <strong>won't fix</strong>. The booking-v3 form is retired, so no new reports can come in this way. Ticket closed as not planned.</li><li><code>one-day</code>: <strong>no fix</strong>. Neither change touches a one-day shift. Ticket closed as not planned; if the desk sees one-day reports again, reopen it rather than merge them into a date ticket.</li></ul>
 <h2>Next</h2>
-<ul><li>Keep #4471 for the parser fix, and track <code>hint</code> and <code>one-day</code> in their own tickets.</li><li>Re-check decision 0001: matching on subject merges different bugs that people describe alike.</li></ul>
+<ul><li>Re-check decision 0001: matching on subject merges different bugs that people describe alike.</li></ul>
 <p class="stamp">desk ref <b>DR-VAAS-JRHY</b></p>
 </main>
 <footer>Pages are written by people. Tables and charts are built from data at render time.</footer>

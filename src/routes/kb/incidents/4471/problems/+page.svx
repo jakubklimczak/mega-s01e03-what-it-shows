@@ -2,7 +2,7 @@
 layout: runbook
 title: '#4471 · three problems, not one'
 owner: Jakub Klimczak
-status: proposed
+status: resolved
 reviewed: 2026-10-30
 signature: Jakub Klimczak
 ---
@@ -19,7 +19,7 @@ say otherwise. Read by what each body describes, and placed by each tenant's loc
 form, the ticket holds three problems. One fix will not close it.
 
 <Callout kind="warn">
-Not one issue. Three, each with its own ticket. The queued parser fix closes only the first.
+Not one issue. Three, each with its own ticket. The parser fix closed only the first.
 </Callout>
 
 ## What #4471 holds
@@ -58,9 +58,18 @@ The table the #4471 page shows. It sees two causes, and only footnotes the one-d
 
 <CauseTable ticket={4471} />
 
+## Outcome
+
+Engineering closed #4471 on 5 October.
+
+- `parser`: **fixed** by `fix(dates): parse dd/mm for eu locales`. Ticket closed as completed.
+- `hint`: **won't fix**. The booking-v3 form is retired, so no new reports can come in this way.
+  Ticket closed as not planned.
+- `one-day`: **no fix**. Neither change touches a one-day shift. Ticket closed as not planned; if
+  the desk sees one-day reports again, reopen it rather than merge them into a date ticket.
+
 ## Next
 
-- Keep #4471 for the parser fix, and track `hint` and `one-day` in their own tickets.
 - Re-check decision 0001: matching on subject merges different bugs that people describe alike.
 
 <RenderStamp {signature} />
