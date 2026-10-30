@@ -2,8 +2,9 @@
 //
 // causes.ts places a report by its tenant and channel. That is right for the two month/day bugs.
 // It cannot see a report whose body describes something else: the desk read five reports as a
-// one-day move (desk-notes.json), not a month/day flip. Those are their own problem here, with
-// their own ticket, instead of a footnote under `parser`.
+// one-day move (desk-notes.json), not a month/day flip. Those get their own row and their own
+// ticket here. Counts follow the desk's view: those reports also stay counted where they are
+// filed, under their cause.
 import { causeOf, uniqueById, type Report, type Tenant } from '#lib/kb/causes';
 
 // Where the tickets for these problems live.
@@ -44,9 +45,12 @@ export function groupByProblem(
 ): ProblemGroup[] {
   const merged = uniqueById(all).filter((r) => r.mergedInto === ticket);
   const by = new Map<Problem, Report[]>();
+  // The desk's view: a report counts where it is filed, by cause (causes.ts). A report the desk
+  // read as a one-day move stays counted under its cause, and also gets the one-day row.
   for (const r of merged) {
-    const p = problemOf(r, tenantOf(r), oneDayMove);
-    by.set(p, [...(by.get(p) ?? []), r]);
+    const c: Problem = causeOf(r, tenantOf(r)) ?? 'unplaced';
+    by.set(c, [...(by.get(c) ?? []), r]);
+    if (problemOf(r, tenantOf(r), oneDayMove) === 'one-day') by.set('one-day', [...(by.get('one-day') ?? []), r]);
   }
   return [...by.entries()]
     .map(([problem, rs]) => {

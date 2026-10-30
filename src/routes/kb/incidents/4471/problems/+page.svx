@@ -40,8 +40,8 @@ not touch it. Only form reports from booking-v3 tenants have it.
 **`one-day` — invites land one whole day off.** These reports describe a shift by one day, not
 a swap: Tuesday shows as Monday, an invite arrives before the booking, two clients in different
 cities get different days for the same meeting. The desk already read them this way
-(`desk-notes.json`), but filed them under `parser` by tenant. A month/day fix cannot move a date
-by one day, so this needs its own ticket.
+(`desk-notes.json`) and filed them under `parser` by tenant, where they stay counted. A month/day
+fix cannot move a date by one day, so this needs its own ticket.
 
 ## How it got merged
 
@@ -54,7 +54,7 @@ by one day, so this needs its own ticket.
 
 ## For comparison: the existing cause table
 
-The table the #4471 page shows. It sees two causes, and folds the one-day reports into `parser`.
+The table the #4471 page shows. It sees two causes, and only footnotes the one-day reports under `parser`.
 
 <CauseTable ticket={4471} />
 

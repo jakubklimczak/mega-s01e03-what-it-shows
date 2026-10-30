@@ -9,7 +9,7 @@
 
   const rows = (reports as Report[]).filter((r) => r.mergedInto === ticket).length;
   const groups = $derived(groupByProblem(reports as Report[], ticket, tenantOf, notes.oneDayMove));
-  const total = $derived(groups.reduce((n, g) => n + g.reports.length, 0));
+  const total = $derived(new Set(groups.flatMap((g) => g.reports.map((r) => r.id))).size);
   const list = (m: Record<string, number>) =>
     Object.entries(m)
       .sort((a, b) => b[1] - a[1])
@@ -32,7 +32,7 @@
       {@const p = g.problem === 'unplaced' ? null : PROBLEMS[g.problem]}
       <tr>
         <td><code>{g.problem}</code>{#if p}<br /><span class="what">{p.title}</span>{/if}</td>
-        <td>{g.reports.length}</td>
+        <td>{g.reports.length}{#if g.problem === 'one-day'}<br /><span class="what">also counted under the cause they are filed under</span>{/if}</td>
         <td>{g.tenants}</td>
         <td class="tags">{list(g.channels)}</td>
         <td class="tags">{list(g.taggedAs)}</td>
