@@ -4,7 +4,7 @@ title: '#4471 · three problems, not one'
 owner: Jakub Klimczak
 status: resolved
 reviewed: 2026-10-30
-signature: Jakub Klimczak
+signature: v1.eyJzdWIiOiIzNTg4IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMzNTExOTEsImV4cCI6MTc5MzQzNzU5MX0.PI90fOlSKBFA1l_yMgkTqODQl7wwALOoKCwfgxMK1AQ
 ---
 
 <script>
