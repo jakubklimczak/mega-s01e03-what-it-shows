@@ -1,0 +1,66 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: Jakub Klimczak
+status: proposed
+reviewed: 2026-10-30
+signature: Jakub Klimczak
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+The [#4471 page](/kb/incidents/4471) calls the ticket one issue with one fix queued. The reports
+say otherwise. Read by what each body describes, and placed by each tenant's locale and booking
+form, the ticket holds three problems. One fix will not close it.
+
+<Callout kind="warn">
+Not one issue. Three, each with its own ticket. The queued parser fix closes only the first.
+</Callout>
+
+## What #4471 holds
+
+<ProblemTable ticket={4471} />
+
+## The three problems
+
+**`parser` — the shared parser reads dates month first.** Every tenant on file writes the day
+first. Their dates come out with day and month swapped: 7 April becomes 4 July. This is the bug
+the #4471 page describes, and the queued fix is for it.
+
+**`hint` — the booking-v3 form asks for the wrong order.** booking-v3 prints `MM/DD/YYYY` under
+its date field. People at day-first tenants type what the hint tells them, month first, and the
+form reads it the tenant's way. The result looks like the parser bug, but the parser fix does
+not touch it. Only form reports from booking-v3 tenants have it.
+
+**`one-day` — invites land one whole day off.** These reports describe a shift by one day, not
+a swap: Tuesday shows as Monday, an invite arrives before the booking, two clients in different
+cities get different days for the same meeting. The desk already read them this way
+(`desk-notes.json`), but filed them under `parser` by tenant. A month/day fix cannot move a date
+by one day, so this needs its own ticket.
+
+## How it got merged
+
+- Decision [0001](/kb/decisions/0001-dedupe-by-subject) merges on the subject line alone. All
+  three problems use the same words ("wrong day", "date is wrong"), so subject matching put them
+  in one ticket.
+- Intake tags are a guess from the reporter's browser, and they disagree with the cause. Count
+  by tenant, form and body, not by tag.
+- The export repeats some reports. Count each id once.
+
+## For comparison: the existing cause table
+
+The table the #4471 page shows. It sees two causes, and folds the one-day reports into `parser`.
+
+<CauseTable ticket={4471} />
+
+## Next
+
+- Keep #4471 for the parser fix, and track `hint` and `one-day` in their own tickets.
+- Re-check decision 0001: matching on subject merges different bugs that people describe alike.
+
+<RenderStamp {signature} />
